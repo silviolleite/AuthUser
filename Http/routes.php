@@ -1,4 +1,4 @@
 <?php
 
 
-Route::get('/', 'AuthUserController@index');
+Route::get('/users', 'AuthUserController@index');
