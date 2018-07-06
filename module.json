@@ -1,0 +1,15 @@
+{
+    "name": "AuthUser",
+    "alias": "authuser",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "AuthUser\\Providers\\AuthUserServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}
