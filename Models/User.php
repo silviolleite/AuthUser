@@ -2,6 +2,7 @@
 
 namespace AuthUser\Models;
 
+use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,7 +27,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\CodeEduBook\Models\Book[] $books
  */
-class User extends Authenticatable
+class User extends Authenticatable implements TableInterface
 {
     use Notifiable;
 
@@ -47,6 +48,29 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function generatePassword($password = null){
+        return !$password ? bcrypt(str_random(8)): bcrypt($password);
+    }
+
+
+    public function getTableHeaders()
+    {
+        return ['#', 'Nome', 'E-mail'];
+    }
+
+    public function getValueForHeader($header)
+    {
+        switch ($header){
+            case '#':
+                return $this->id;
+            case 'Nome':
+                return $this->name;
+            case 'E-mail':
+                return $this->email;
+        }
+    }
+
 
     public function books(){
         return $this->hasMany('CodeEduBook\Models\Book', 'user_id');
