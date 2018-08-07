@@ -34,8 +34,9 @@ class AuthUserServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register(\Jrean\UserVerification\UserVerificationServiceProvider::class);
         $this->app->register(RepositoryServiceProvider::class);
-        $this->app->register(\RouteServiceProvider::class);
+        $this->app->register(RouteServiceProvider::class);
     }
 
     /**
