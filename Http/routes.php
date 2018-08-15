@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['as' => 'authuser.'], function (){
+Route::group(['as' => 'authuser.', 'middleware' => ['auth', config('authuser.middleware.isVerified')]], function (){
     Route::group(['prefix' => 'admin'], function (){
         Route::resource('users', 'UsersController');
     });

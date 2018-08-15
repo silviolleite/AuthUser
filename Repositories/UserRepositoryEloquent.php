@@ -26,7 +26,9 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
 
     public function update(array $attributes, $id)
     {
-        $attributes['password'] = User::generatePassword($attributes['password']);
+        if (isset($attributes['password'])){
+            $attributes['password'] = User::generatePassword($attributes['password']);
+        }
         return parent::update($attributes, $id);
     }
 
@@ -40,7 +42,7 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return User::class;
     }
 
-    
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -49,5 +51,5 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

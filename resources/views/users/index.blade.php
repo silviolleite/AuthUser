@@ -31,7 +31,7 @@
                 return '<ul class="list-inline">'.
                         '<li>'.Button::link('Editar')->asLinkTo($linkEdit).'</li>'.
                         '<li>|</li>'.
-                        '<li>'.$ancorDestroy.'</li>'.
+                        '<li>'.(($user->id == \Auth::user()->id) ? '<span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>' : $ancorDestroy).'</li>'.
                         '</ul>'.
                         $form;
             })
