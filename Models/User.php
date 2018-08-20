@@ -39,7 +39,7 @@ class User extends Authenticatable implements TableInterface
      */
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'verified'
     ];
 
     /**
@@ -76,5 +76,25 @@ class User extends Authenticatable implements TableInterface
 
     public function books(){
         return $this->hasMany('CodeEduBook\Models\Book', 'user_id');
+    }
+
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * @param Collection|string $role
+     * @return boolean
+     */
+    public function hasRole($role){
+        return is_string($role)?
+            $this->roles->contains('name', $role):
+            (boolean) $role->intersect($this->roles)->count();
+    }
+
+
+    public function isAdmin(){
+        return $this->hasRole(config('authuser.acl.role_admin'));
     }
 }
